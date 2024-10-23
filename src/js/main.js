@@ -1,6 +1,8 @@
 // On change anchor, change active class
 document.addEventListener('DOMContentLoaded', () => {
   const links = document.querySelectorAll('.nav-link');
+  const dropdownToggle = document.getElementById('navbarDropdown');
+  const dropdownMenu = document.querySelector('.dropdown-menu');
 
   links.forEach((link) => {
     link.addEventListener('click', (e) => {
@@ -9,6 +11,19 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       e.target.classList.add('active');
     });
+  });
+
+  //open and close the dropdown
+  dropdownToggle.addEventListener('clik', (e) => {
+    e.preventDefault();
+    dropdownMenu.classList.toggle('show');
+  });
+  
+  // close the dropdown if you clik outside of it
+  document.addEventListener('click', (e) => {
+    if(!dropdownToggle.contains(e.target) && !dropdownMenu.contains(e.target)){
+      dropdownMenu.classList.remove('show')
+    }
   });
 });
 
