@@ -44,3 +44,13 @@ if (anchor) {
 $('.carousel').carousel({
   interval: 2000,
 });
+
+
+// footer
+// form verification
+document.getElementById("contactForm").addEventListener("submit", function(event) {
+  if (!this.checkValidity()) {
+    event.preventDefault(); // Impede o envio se houver campos inválidos
+    alert("Por favor, preencha todos os campos obrigatórios.");
+  }
+});
