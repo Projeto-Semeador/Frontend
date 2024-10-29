@@ -18,11 +18,14 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
     dropdownMenu.classList.toggle('show');
   });
-  
+
   // close the dropdown if you clik outside of it
   document.addEventListener('click', (e) => {
-    if(!dropdownToggle.contains(e.target) && !dropdownMenu.contains(e.target)){
-      dropdownMenu.classList.remove('show')
+    if (
+      !dropdownToggle.contains(e.target) &&
+      !dropdownMenu.contains(e.target)
+    ) {
+      dropdownMenu.classList.remove('show');
     }
   });
 });
@@ -45,12 +48,13 @@ $('.carousel').carousel({
   interval: 2000,
 });
 
-
 // footer
 // form verification
-document.getElementById("contactForm").addEventListener("submit", function(event) {
-  if (!this.checkValidity()) {
-    event.preventDefault(); // Impede o envio se houver campos inválidos
-    alert("Por favor, preencha todos os campos obrigatórios.");
-  }
-});
+document
+  .getElementById('contactForm')
+  .addEventListener('submit', function (event) {
+    if (!this.checkValidity()) {
+      event.preventDefault(); // Impede o envio se houver campos inválidos
+      alert('Por favor, preencha todos os campos obrigatórios.');
+    }
+  });
