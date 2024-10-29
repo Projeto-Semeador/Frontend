@@ -1,11 +1,11 @@
 <center>
-    <image src="./src/images/icon.png" width="150" style="border-radius:20px"/>
+    <image src="./frontend/src/images/icon_SVG.svg" width="150" style="border-radius:20px"/>
 
 # Projeto Integrador Interdisciplinar (PII) - O Semeador
 
 </center>
 
-Esse repositório tem o objetivo de aprimorar um WebSite da escola "O Semeador", uma instituição beneficiente sem quaisquer fins lucrativos para crianças e adolescentes com TEA (Transtorno do Espectro Autista), deficiência intelectual, múltiplas deficiências e autismo.
+Esse repositório tem o objetivo de aprimorar um Website da escola "O Semeador", uma instituição beneficiente sem quaisquer fins lucrativos para crianças e adolescentes com TEA (Transtorno do Espectro Autista), deficiência intelectual, múltiplas deficiências e autismo.
 
 ## Instituto Mauá de Tecnologia (IMT) - Turma 4
 
@@ -21,17 +21,33 @@ Esse repositório tem o objetivo de aprimorar um WebSite da escola "O Semeador",
 
 </center>
 
-## Padrões:
+## Estrutura do Projeto
 
-- Commit:
+O projeto foi dividido em duas partes: `frontend` e `backend`. O `frontend` é responsável por toda a parte visual do site, enquanto o `backend` é responsável por toda a parte lógica e de conexão com o banco de dados.
 
-```bash
-    git commit -m "<tipo>: <mensagem>"
+```
+├───backend 
+│   └───tests [Testes de integração]
+└───frontend
+    ├───scss [Arquivos de estilo]
+    └───src [Arquivos de código]
+        ├───images
+        └───js
 ```
 
-Na qual, `<tipo>` deve obedecer a convenção:
-[Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
+## Tecnologias Utilizadas
 
-`<mensagem>` deve ser uma **breve** descrição da mudança em **inglês**
+- Frontend: HTML, CSS, JavaScript, Bootstrap, SCSS
+- Backend: NodeJS, Express, MongoDB
 
-Ex:. `feat: add CSS`
+## Como rodar o projeto
+
+### Frontend
+1. Clone o repositório
+2. Entre na pasta `frontend` e execute o comando `npm install`
+3. Entre na pasta `frontend` e execute o comando `build:sass`
+4. Entre na pasta `frontend` e abra o arquivo `index.html` no seu navegador
+
+### Backend
+1. Entre na pasta `backend` e execute o comando `npm install`
+2. Entre na pasta `backend` e execute o comando `npm start`
