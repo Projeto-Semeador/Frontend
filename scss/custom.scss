@@ -47,4 +47,19 @@ html {
   width: 100%;
 }
 
+#footer_social_media{
+  a{
+    margin-right: 0.5rem;
+
+    img{
+      width: 30px;
+      height: auto;
+    }
+  }
+
+  a:last-child{
+    margin-right: 0;
+  }
+}
+
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
