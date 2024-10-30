@@ -7,7 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link href="../../../scss/custom.css" rel="stylesheet" />
 </head>
-<body onload="validateSession()">
+<body onload="fetchEvents()">
     <main>
         <header>
             <nav
@@ -111,7 +111,7 @@
               </div>
             </nav>
           </header>
-          <div class="container mt-5">
+          <div class="container mt-5 mb-5">
               <div class="d-flex justify-content-between">
                 <h1 class="mb-4">Painel de Controle</h1>
                 <button type="button" class="btn btn-secondary p-2" style="height: min-content;" data-bs-toggle="modal" data-bs-target="#addEventModal">Novo evento</button>
@@ -127,33 +127,7 @@
                     <!-- Logout button with faint text -->
                     <button class="btn btn-link text-muted mt-3" onclick="logout()">Sair</button>
                 </div>
-                <div class="col-md-9 d-flex flex-column gap-4">
-                    <div class="card">
-                        <div class="card-header">
-                            Eventos
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Evento de teste</h5>
-                            <p class="card-text">
-                                Evento legal
-                            </p>
-                            <a href="#" class="btn btn-secondary">Editar</a>
-                            <a href="#" class="btn btn-danger">Excluir</a>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            Eventos
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Evento de teste</h5>
-                            <p class="card-text">
-                                Evento legal
-                            </p>
-                            <a href="#" class="btn btn-secondary">Editar</a>
-                            <a href="#" class="btn btn-danger">Excluir</a>
-                        </div>
-                    </div>
+                <div id="eventList" class="col-md-9 d-flex flex-column gap-4">
                 </div>
             </div>
         </div>
@@ -166,7 +140,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body p-4">
-                        <form>
+			<div>
                             <div class="mb-3">
                                 <label for="eventName" class="form-label">Nome do Evento</label>
                                 <input type="text" class="form-control" id="eventName" required>
@@ -176,23 +150,11 @@
                                 <textarea class="form-control" id="eventDescription" rows="3" required></textarea>
                             </div>
                             <div class="mb-3">
-                                <label for="eventDate" class="form-label">Data</label>
-                                <input type="date" class="form-control" id="eventDate" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="eventTime" class="form-label">Hora</label>
-                                <input type="time" class="form-control" id="eventTime" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="eventLocation" class="form-label">Local</label>
-                                <input type="text" class="form-control" id="eventLocation" required>
-                            </div>
-                            <div class="mb-3">
                                 <label for="eventImage" class="form-label">Imagem</label>
                                 <input type="file" class="form-control" id="eventImage" required>
                             </div>
-                            <button type="submit" class="btn btn-primary">Adicionar</button>
-                        </form>
+                            <button type="submit" class="btn btn-secondary" onclick="createNewEvent()">Adicionar</button>
+                        </div>
                     </div>
                 </div>
             </div>
