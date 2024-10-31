@@ -87,10 +87,14 @@ function displayAlert(type, message) {
       break;
   }
 
-  var alert = document.querySelector('#feedbackAlert');
+  const alert = document.createElement('div');
+  alert.id = 'feedbackAlert';
   alert.className = `alert alert-${type} show fade d-flex align-items-center gap-4`;
   alert.innerHTML = icon;
   alert.innerHTML += message;
+
+  var main = document.querySelector('main');
+  main.appendChild(alert);
 
   setTimeout(() => {
     $('#feedbackAlert').alert('close');
@@ -141,10 +145,10 @@ function populateAnalytics(analytics) {
 
   analytics.forEach((a) => {
     analyticsTable.innerHTML += analyticsTemplateFactory(a);
-    
+
     if (a.type == 'chart') {
       const ctx = document.getElementById(`${a.metric}Chart`);
-  
+
       new Chart(ctx, {
         type: 'bar',
         data: {
@@ -177,14 +181,14 @@ function populateAnalytics(analytics) {
 
 // Logs the user in
 async function login() {
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
-  const remember = document.getElementById('remember').checked;
+  const email = document.getElementById('email');
+  const password = document.getElementById('password');
+  const remember = document.getElementById('remember');
 
   const data = {
-    username: email,
-    password,
-    remember,
+    username: email.value,
+    password: password.value,
+    remember: remember.checked,
   };
 
   await axios
@@ -192,10 +196,12 @@ async function login() {
       withCredentials: true,
     })
     .then((res) => {
-      jwtToken = getCookie('jwtToken');
       window.location.href = '/src/admin/dashboard';
     })
     .catch((err) => {
+      email.classList.add('is-invalid');
+      password.classList.add('is-invalid');
+
       let alert = document.querySelector('.alert');
       alert.className = `alert alert-danger show`;
       alert.classList.remove('d-none');
@@ -207,22 +213,39 @@ async function login() {
     });
 }
 
+// Logout
+function logout() {
+  console.log('Logging out');
+
+  // Clear cookies
+  document.cookie = '';
+
+  // Redirect to login
+  window.location.href = '/src/admin';
+
+  // Delay and display alert
+  setTimeout(() => {
+    displayAlert('success', 'Logout efetuado com sucesso');
+  }, 2000);
+}
+
 // Registers a new user
 async function createUser() {
-  let username = document.querySelector('#username').value;
-  let password = document.querySelector('#password').value;
-  let passwordConfirmation = document.querySelector(
-    '#passwordConfirmation'
-  ).value;
+  let username = document.querySelector('#username');
+  let password = document.querySelector('#password');
+  let passwordConfirmation = document.querySelector('#passwordConfirmation');
 
   const user = {
     user: {
-      username,
-      password,
+      username: username.value,
+      password: password.value,
     },
   };
 
-  if (password !== passwordConfirmation) {
+  if (password.value.length < 8) {
+    $('#password').addClass('is-invalid');
+    return;
+  } else if (password.value !== passwordConfirmation.value) {
     $('#passwordConfirmation').addClass('is-invalid');
     return;
   }
@@ -230,13 +253,15 @@ async function createUser() {
   await axios
     .post(`${serverURL}/register`, user, defaultOptions)
     .then((res) => {
-      displayAlert('success', 'Usuário criado com sucesso');
-      fetchUsers();
       $('#addUserModal').modal('toggle');
+      displayAlert('success', 'Usuário criado com sucesso');
     })
     .catch((err) => {
+      $('#addUserModal').modal('toggle');
       displayAlert('danger', 'Não foi possível criar o usuário');
     });
+
+  fetchUsers();
 }
 
 // Fetches the analytics from the server
@@ -245,14 +270,22 @@ async function fetchAnalytics() {
     .get(`${serverURL}/analytics`, defaultOptions)
     .then((res) => {
       populateAnalytics(res.data);
+    })
+    .catch((err) => {
+      displayAlert('danger', 'Não foi possível carregar as análises');
     });
 }
 
 // Fetches the events from the server
 async function fetchEvents() {
-  await axios.get(`${serverURL}/events`).then((res) => {
-    populateEvents(res.data);
-  });
+  await axios
+    .get(`${serverURL}/events`)
+    .then((res) => {
+      populateEvents(res.data);
+    })
+    .catch((err) => {
+      displayAlert('danger', 'Não foi possível carregar os eventos');
+    });
 }
 
 // Fetches the users from the server
@@ -261,36 +294,41 @@ async function fetchUsers() {
     .get(`${serverURL}/users`, defaultOptions)
     .then((res) => {
       populateUsers(res.data);
+    })
+    .catch((err) => {
+      displayAlert('danger', 'Não foi possível carregar os usuários');
     });
 }
 
 // Creates a new event
 async function createNewEvent() {
-  let eventName = document.querySelector('#eventName').value;
-  let eventDescription = document.querySelector('#eventDescription').value;
-  let eventImage = document.querySelector('#eventImage').files[0];
-  let modal = document.querySelector('#addEventModal');
+  let eventName = document.querySelector('#eventName');
+  let eventDescription = document.querySelector('#eventDescription');
+  let eventImage = document.querySelector('#eventImage');
 
   const event = {
-    name: eventName,
-    description: eventDescription,
-    image: eventImage,
+    name: eventName.value,
+    description: eventDescription.value,
+    image: eventImage.files[0],
   };
 
-  console.log(event);
-
   await axios
-    .post(`${serverURL}/events`, event, defaultOptions)
+    .post(`${serverURL}/events`, event, {
+      ...defaultOptions,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
     .then((res) => {
+      $('#addEventModal').modal('toggle');
       displayAlert('success', 'Evento criado com sucesso');
     })
     .catch((err) => {
+      $('#addEventModal').modal('toggle');
       displayAlert('danger', 'Não foi possível criar o evento');
     });
 
   await fetchEvents();
-
-  $('#addEventModal').modal('toggle');
 }
 
 // Deletes an event
@@ -298,34 +336,32 @@ async function deleteEvent(id) {
   await axios
     .delete(`${serverURL}/events/${id}`, defaultOptions)
     .then((res) => {
+      $('#deleteEventModal').modal('toggle');
       displayAlert('success', 'Evento deletado com sucesso');
     })
     .catch((err) => {
+      $('#deleteEventModal').modal('toggle');
       displayAlert('danger', 'Não foi possível deletar o evento');
     });
 
   await fetchEvents();
-
-  $('#deleteEventModal').modal('toggle');
 }
 
 // Deletes a user
 async function deleteUser(username) {
-  console.log(username);
-
   await axios
     .delete(`${serverURL}/users/${username}`, defaultOptions)
     .then((res) => {
+      $('#deleteUserModal').modal('toggle');
       displayAlert('success', 'Usuário deletado com sucesso');
     })
     .catch((err) => {
+      $('#deleteUserModal').modal('toggle');
       displayAlert('danger', 'Não foi possível deletar o usuário');
     });
 
   fetchUsers();
-  $('#deleteUserModal').modal('toggle');
 }
-
 
 // Sets the event listeners for the modals
 $('#deleteUserModal').on('show.bs.modal', function (event) {

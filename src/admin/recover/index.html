@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Painel de Controle - O Semeador</title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <link href="../../scss/custom.css" rel="stylesheet" />
+    <link href="../../../scss/custom.css" rel="stylesheet" />
   </head>
   <body>
     <!-- ? Navbar -->
@@ -15,7 +15,7 @@
         class="navbar navbar-expand-sm bg-white align-items-center px-lg-5 border-bottom"
       >
         <a class="navbar-brand" style="margin-left: 1rem" href="/src">
-          <img id="logo" src="../images/icon_SVG.svg" alt="logo" />
+          <img id="logo" src="../../images/icon_SVG.svg" alt="logo" />
         </a>
         <div class="d-flex align-items-center gap-4" style="margin-right: 1rem">
           <button
@@ -112,12 +112,16 @@
       class="d-flex align-items-center justify-content-center flex-column container"
     >
       <img
-        src="../../src/images/icon_SVG.svg"
+        src="../../../src/images/icon_SVG.svg"
         alt="Logo"
         style="height: 6rem; margin-bottom: 60px"
       />
+      <h5 class="text-center">Recuperar senha</h5>
+      <p class="text-center" style="margin-bottom: 20px">
+        Insira seu email para recuperar sua senha
+      </p>
       <div id="loginDiv" class="gap-4 d-flex flex-column">
-        <div class="form-group" id="loginForm">
+        <div class="form-group">
           <label for="email">Email</label>
           <input
             type="email"
@@ -127,38 +131,28 @@
             placeholder="Insira seu email"
           />
         </div>
-        <div class="form-group">
-          <label for="password">Senha</label>
-          <input
-            type="password"
-            class="form-control"
-            id="password"
-            placeholder="Insira sua senha"
-          />
-        </div>
-        <div class="form-group form-check">
-          <input type="checkbox" class="form-check-input" id="remember" />
-          <label class="form-check-label" for="remember"
-            >Lembre-se de mim</label
-          >
-        </div>
         <button type="submit" class="btn btn-secondary" onclick="login()">
-          Entrar
+          Enviar
         </button>
-        <a href="/src/admin/recover" class="link-secondary text-center"
-          >Recuperar senha</a
+        <a href="/src/admin" class="link-secondary text-center">Login</a>
+        <div
+          id="login-error"
+          class="alert alert-dismissable fade"
+          style="
+            position: absolute;
+            bottom: 5px;
+            text-align: center;
+            left: 0;
+            right: 0;
+            width: fit-content;
+            margin-inline: auto;
+          "
+          role="alert"
         >
-        <div id="login-error" class="alert alert-dismissable fade" role="alert">
           <strong>Erro!</strong> Email ou senha inválidos.
         </div>
       </div>
-      <!-- Request feedback alert -->
     </main>
-    <script
-      src="https://code.jquery.com/jquery-3.7.1.slim.js"
-      integrity="sha256-UgvvN8vBkgO0luPSUl2s8TIlOSYRoGFAX4jlCIm9Adc="
-      crossorigin="anonymous"
-    ></script>
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
       integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
@@ -169,6 +163,6 @@
       integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
       crossorigin="anonymous"
     ></script>
-    <script src="js/main.js"></script>
+    <script src="../js/main.js"></script>
   </body>
 </html>

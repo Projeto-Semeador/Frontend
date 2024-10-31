@@ -155,15 +155,23 @@
                 >Análises</a
               >
             </div>
+            <hr class="my-4" />
             <button
-              class="btn btn-link text-muted d-flex align-items-center gap-2 mt-3"
-              onclick="logout()"
+              id="logoutButton"
+              type="button"
+              class="btn btn-link text-muted d-none d-md-flex align-items-center gap-2"
+              data-bs-target="#logoutModal"
+              data-bs-toggle="modal"
             >
               Sair
               <i class="bi bi-box-arrow-right"></i>
             </button>
           </div>
-          <div id="userList" class="col-md-9 d-flex flex-column gap-4"></div>
+          <div id="userList" class="col-md-9 d-flex flex-column gap-4">
+            <div class="col d-flex align-items-center justify-content-center">
+              <div class="spinner-border" role="status"></div>
+            </div>
+          </div>
         </div>
       </div>
       <!-- Modal form to add new event -->
@@ -282,12 +290,51 @@
           </div>
         </div>
       </div>
-      <!-- Request feedback alert -->
+      <!-- Logout modal -->
       <div
-        role="alert"
-        id="feedbackAlert"
-        style="position: fixed; bottom: 1rem; right: 1rem"
-      ></div>
+        class="modal fade"
+        id="logoutModal"
+        tabindex="-1"
+        aria-labelledby="logoutModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="logoutModalLabel">Sair</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body p-4">
+              <div>
+                <p>Tem certeza que deseja sair?</p>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                id="deleteConfirmation"
+                type="submit"
+                class="btn btn-danger"
+                onclick="logout()"
+              >
+                Sair
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Request feedback alert -->
     </main>
     <script
       src="https://code.jquery.com/jquery-3.7.1.slim.js"
