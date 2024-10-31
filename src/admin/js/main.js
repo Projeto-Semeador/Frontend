@@ -282,18 +282,20 @@ async function fetchEvents() {
     .get(`${serverURL}/events`)
     .then((res) => {
       populateEvents(res.data);
+      $('#actionButton').removeClass('disabled');
     })
     .catch((err) => {
       displayAlert('danger', 'Não foi possível carregar os eventos');
     });
 }
-
+  
 // Fetches the users from the server
 async function fetchUsers() {
-  await axios
+    await axios
     .get(`${serverURL}/users`, defaultOptions)
     .then((res) => {
       populateUsers(res.data);
+      $('#actionButton').removeClass('disabled');
     })
     .catch((err) => {
       displayAlert('danger', 'Não foi possível carregar os usuários');
