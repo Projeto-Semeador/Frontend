@@ -31,19 +31,29 @@ function populateEvents(events){
 	const eventList = document.querySelector("#eventList")
 	eventList.innerHTML = '';
 
+	if (events.length <= 0) { 
+		eventList.innerHTML = `
+			<div style="height: 100%; width: 100%;">
+				<p class="text-center text-muted">Nenhum evento cadastrado</p>
+			</div>
+		`
+	}
+
 	events.forEach((e) => {
 		eventList.innerHTML += `
 		    <div class="card">
 			<div class="card-header">
-			    Eventos
+			    Evento #${e.id}
 			</div>
 			<div class="card-body">
 			    <h5 class="card-title">${e.name}</h5>
 			    <p class="card-text">
 				${e.description}
 			    </p>
-			    <a href="#" class="btn btn-primary text-white">Editar</a>
-			    <button onclick='deleteEvent(${e.id})' class="btn btn-danger">Excluir</button>
+			    <div class="d-flex gap-2">
+				    <button href="#" class="btn btn-primary text-white">Editar</button>
+				    <button onclick='deleteEvent(${e.id})' class="btn btn-danger">Excluir</button>
+			    </div>
 			</div>
 		    </div>
 		`
@@ -76,6 +86,7 @@ async function createNewEvent() {
 		}
 	});
 	await fetchEvents();
+	$('#addEventModal').modal('hide');
 }
 
 async function deleteEvent(id) {
