@@ -45,7 +45,7 @@ O projeto foi dividido em duas partes: `frontend` e `backend`. O `frontend` é r
 ### Frontend
 1. Clone o repositório
 2. Entre na pasta `frontend` e execute o comando `npm install`
-3. Entre na pasta `frontend` e execute o comando `build:sass`
+3. Entre na pasta `frontend` e execute o comando `build:scss`
 4. Entre na pasta `frontend` e abra o arquivo `index.html` no seu navegador
 
 ### Backend
