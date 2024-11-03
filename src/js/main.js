@@ -1,3 +1,5 @@
+new window.VLibras.Widget('https://vlibras.gov.br/app');
+
 // Get anchor id from URL
 const re = new RegExp('(#[a-zA-Z0-9]*)');
 const url = window.location.href;
