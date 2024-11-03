@@ -9,7 +9,7 @@ function eventTemplateFactory(event) {
   return `
     <div class="card">
       <div class="card-header">
-          Evento #${event.id}
+          Evento #${event._id}
       </div>
       <div class="card-body">
       <div class="d-flex justify-content-between align-items-center">
@@ -20,8 +20,8 @@ function eventTemplateFactory(event) {
           </p>
           </div>
           <div class="d-flex gap-2" style="height: min-content;">
-            <button href="#" class="btn btn-primary text-white"><i class="bi bi-pencil"></i></button>
-            <button data-bs-toggle="modal" class="btn btn-danger" data-id="${event.id}" data-bs-target="#deleteEventModal" ><i class="bi bi-trash"></i></button>
+            <button data-bs-toggle="modal" class="btn btn-primary text-white" data-ename=${event.name} data-edescription=${event.description} data-bs-target="#editEventModal"><i class="bi bi-pencil"></i></button>
+            <button data-bs-toggle="modal" class="btn btn-danger" data-id="${event._id}" data-bs-target="#deleteEventModal" ><i class="bi bi-trash"></i></button>
           </div>
         </div>
       </div>
@@ -304,9 +304,9 @@ async function fetchUsers() {
 
 // Creates a new event
 async function createNewEvent() {
-  let eventName = document.querySelector('#eventName');
-  let eventDescription = document.querySelector('#eventDescription');
-  let eventImage = document.querySelector('#eventImage');
+  let eventName = document.querySelector('#addEventModal #eventName');
+  let eventDescription = document.querySelector('#addEventModal #eventDescription');
+  let eventImage = document.querySelector('#addEventModal #eventImage');
 
   const event = {
     name: eventName.value,
@@ -365,6 +365,47 @@ async function deleteUser(username) {
   fetchUsers();
 }
 
+// Changes the user password
+async function changePassword() {
+	// Get token from URL http://localhost:3000/src/recover?token=123
+	let token = new URLSearchParams(window.location.search).get('token');
+	let password = document.querySelector('#newPassword');
+	let passwordConfirmation = document.querySelector('#newPasswordConfirmation');
+
+	if (token === null) {
+		displayAlert('danger', 'Token inválido');
+		return;
+	}
+
+	if (password.value.length < 8) {
+		$('#newPassword').addClass('is-invalid');
+		return;
+	} else if (password.value !== passwordConfirmation.value) {
+		$('#newPasswordConfirmation').addClass('is-invalid');
+		return;
+	}
+
+	await axios.post(`${serverURL}/changePassword/${token}`, { password: password.value }, defaultOptions).then((res) => {
+		displayAlert('success', 'Senha alterada com sucesso');
+	}).catch((err) => {
+		displayAlert('danger', 'Não foi possível alterar a senha');
+	});
+}
+
+// Sends recovery email
+async function sendRecoveryEmail() {
+	let email = document.querySelector('#recoveryEmail');
+
+	await axios
+		.post(`${serverURL}/recover`, { user: {username: email.value} }, defaultOptions)
+		.then((res) => {
+			displayAlert('success', 'Email de recuperação enviado com sucesso');
+		})
+		.catch((err) => {
+			displayAlert('danger', 'Não foi possível enviar o email de recuperação');
+		});
+}
+
 // Sets the event listeners for the modals
 $('#deleteUserModal').on('show.bs.modal', function (event) {
   let button = $(event.relatedTarget);
@@ -381,5 +422,16 @@ $('#deleteEventModal').on('show.bs.modal', function (event) {
   let id = button.data('id');
 
   let modal = $(this);
-  modal.find('#deleteConfirmation').attr('onclick', `deleteEvent(${id})`);
+  console.log(id);
+  modal.find('#deleteConfirmation').attr('onclick', `deleteEvent("${id}")`);
+});
+
+$('#editEventModal').on('show.bs.modal', function (event) {
+	let button = $(event.relatedTarget);
+	let name = button.data('ename');
+	let description = button.data('edescription');
+
+	let modal = $(this);
+	modal.find('#eventName').val(name);
+	modal.find('#eventDescription').val(description);
 });
