@@ -26,7 +26,7 @@ Esse repositório tem o objetivo de aprimorar um Website da escola "O Semeador",
 O projeto foi dividido em duas partes: `frontend` e `backend`. O `frontend` é responsável por toda a parte visual do site, enquanto o `backend` é responsável por toda a parte lógica e de conexão com o banco de dados.
 
 ```
-├───backend 
+├───backend
 │   └───tests [Testes de integração]
 └───frontend
     ├───scss [Arquivos de estilo]
@@ -43,11 +43,13 @@ O projeto foi dividido em duas partes: `frontend` e `backend`. O `frontend` é r
 ## Como rodar o projeto
 
 ### Frontend
+
 1. Clone o repositório
 2. Entre na pasta `frontend` e execute o comando `npm install`
 3. Entre na pasta `frontend` e execute o comando `build:scss`
 4. Entre na pasta `frontend` e abra o arquivo `index.html` no seu navegador
 
 ### Backend
+
 1. Entre na pasta `backend` e execute o comando `npm install`
 2. Entre na pasta `backend` e execute o comando `npm start`

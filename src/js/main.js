@@ -18,12 +18,13 @@ $('.carousel').carousel({
   interval: 2000,
 });
 
-
 // footer
 // form verification
-document.getElementById("contactForm").addEventListener("submit", function(event) {
-  if (!this.checkValidity()) {
-    event.preventDefault();
-    alert("Por favor, preencha todos os campos obrigatórios.");
-  }
-});
+document
+  .getElementById('contactForm')
+  .addEventListener('submit', function (event) {
+    if (!this.checkValidity()) {
+      event.preventDefault();
+      alert('Por favor, preencha todos os campos obrigatórios.');
+    }
+  });

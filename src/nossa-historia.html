@@ -1,119 +1,193 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="./images/icon_SVG.svg" />
     <link href="../scss/custom.css" rel="stylesheet" />
     <title>Sobre Nós</title>
-</head>
-<body>
-      <div class="container-xs">
-        <!-- ? Navbar -->
-        <header>
-          <nav
-            id="navbar"
-            class="navbar navbar-expand-sm bg-white align-items-center px-lg-5 border-bottom"
+  </head>
+  <body>
+    <div class="container-xs">
+      <!-- ? Navbar -->
+      <header>
+        <nav
+          id="navbar"
+          class="navbar navbar-expand-sm bg-white align-items-center px-lg-5 border-bottom"
+        >
+          <a class="navbar-brand" style="margin-left: 1rem" href="#">
+            <img id="logo" src="./images/icon_SVG.svg" alt="logo" />
+          </a>
+          <div
+            class="d-flex align-items-center gap-4"
+            style="margin-right: 1rem"
           >
-            <a class="navbar-brand" style="margin-left: 1rem" href="#">
-              <img id="logo" src="./images/icon_SVG.svg" alt="logo" />
-            </a>
-            <div
-              class="d-flex align-items-center gap-4"
-              style="margin-right: 1rem"
+            <button
+              class="navbar-toggler"
+              style="font-size: medium"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarNav"
+              aria-controls="navbarNav"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
             >
-              <button
-                class="navbar-toggler"
-                style="font-size: medium"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarNav"
-                aria-controls="navbarNav"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-              >
-                <span class="navbar-toggler-icon"></span>
-              </button>
-            </div>
-            <div
-              class="collapse navbar-collapse justify-content-between bg-white"
-              id="navbarNav"
-              style="z-index: 90"
-            >
-              <ul class="navbar-nav px-4 gap-2" style="font-size: medium">
-                <li class="nav-item">
-                  <a class="nav-link" aria-current="page" href="#" id="inicio">Inicio</a>
-                </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#SobreNos" role="button" aria-expanded="false">Sobre Nós</a>
-                  <ul class="dropdown-menu">
-                    <li>
-                      <a class="dropdown-item" href="#NossaHistoria">Nossa História</a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#NossaInfrestrutura">Nossa Infraestrutura</a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#NossaEquipe">Nossa Equipe</a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#FazerPedagogico">Fazer Pedagógico</a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#SegmentosEducacionais">Segmentos Educacionais</a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#Matricula">Matrícula</a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#Parceiros">Parceiros</a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#Eventos">Eventos</a>
-                </li>
-                <!-- <li class="nav-item">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          </div>
+          <div
+            class="collapse navbar-collapse justify-content-between bg-white"
+            id="navbarNav"
+            style="z-index: 90"
+          >
+            <ul class="navbar-nav px-4 gap-2" style="font-size: medium">
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="#" id="inicio"
+                  >Inicio</a
+                >
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#SobreNos"
+                  role="button"
+                  aria-expanded="false"
+                  >Sobre Nós</a
+                >
+                <ul class="dropdown-menu">
+                  <li>
+                    <a class="dropdown-item" href="#NossaHistoria"
+                      >Nossa História</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#NossaInfrestrutura"
+                      >Nossa Infraestrutura</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#NossaEquipe"
+                      >Nossa Equipe</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#FazerPedagogico"
+                      >Fazer Pedagógico</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#SegmentosEducacionais"
+                      >Segmentos Educacionais</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#Matricula">Matrícula</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#Parceiros">Parceiros</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#Eventos">Eventos</a>
+              </li>
+              <!-- <li class="nav-item">
                   <a class="nav-link" href="#Voluntariado">Voluntariado</a>
                 </li> -->
-                <li class="nav-item">
-                  <a class="nav-link" href="#Contato">Contato</a>
-                </li>
-              </ul>
-              <a class="btn btn-secondary ms-3 mb-2" href="" target="_blank" role="button">Quero Doar</a>
-            </div>
-          </nav>
-        </header>
+              <li class="nav-item">
+                <a class="nav-link" href="#Contato">Contato</a>
+              </li>
+            </ul>
+            <a
+              class="btn btn-secondary ms-3 mb-2"
+              href=""
+              target="_blank"
+              role="button"
+              >Quero Doar</a
+            >
+          </div>
+        </nav>
+      </header>
 
-        <!-- conteudo -->
-        <main>
-          <img src="./" alt="imagem fachada" class="img-fluid">
-          <h1 class="mt-5 ms-5 mb-4">Mais Sobre Nossa História</h1>
-          <div class="row">
-            <div class="col-12 col-md-6">
-              <div class="ms-5 me-3">
-                <p>A Escola Metodista de Educação Especial “O Semeador” nasceu nos anos 70 com a necessidade eminente de uma das irmãs, mãe e mulher de fé, que enfrentava dificuldades no cuidado de seus dois filhos adolescentes e que tinham deficiência intelectual. Eles já não poderiam ser assistidos pelas instituições escolares especializadas da época, porque estas desligavam seus alunos aos quinze anos.</p>
-                <p>Movidos por um profundo senso de solidariedade e com a firme convicção de que o amor de Deus abrange todas as pessoas, independente de suas condições físicas ou mentais, pois foram criadas à Sua imagem e semelhança, seus irmãos e irmãs na fé, decidiram unir forças e concentrar todos os esforços disponíveis para melhorar a qualidade de vida e o bem-estar não apenas dos filhos dela, mas também de todas as pessoas que enfrentavam desafios de deficiência e que pudessem ser alcançadas.</p>
-              </div>
-            </div>
-            <div class="col-12 col-md-6">
-              <div class="ms-5 me-3">
-                <p>A Escola Metodista de Educação Especial “O Semeador” nasceu nos anos 70 com a necessidade eminente de uma das irmãs, mãe e mulher de fé, que enfrentava dificuldades no cuidado de seus dois filhos adolescentes e que tinham deficiência intelectual. Eles já não poderiam ser assistidos pelas instituições escolares 
-                especializadas da época, porque estas desligavam seus alunos aos quinze anos. </p>
-                <p>Durante muitos anos, a Escola “O Semeador” funcionou nas dependências da Igreja Metodista. Em 1980, a Prefeitura Municipal de São Caetano do Sul cedeu, em regime de comodato, um terreno de 2.066 m² à Rua dos Meninos, 555, Bairro Mauá, para construção da sede própria da escola que, com muito esforço, trabalho e dedicação em campanhas e com recursos advindos da Igreja Metodista em outros países, construiu o atual complexo tendo sido inaugurado em 1987.</p>
-              </div>
-            </div>
-            <div class="col-12">
-              <div class="ms-5 me-3">
-                <p>Atualmente, a escola oferece Atendimento Educacional Especializado para crianças de 4 e 5 anos na Educação Infantil, e de 6 a 18 anos no Ensino Fundamental (1º ao 5º ano). Oferece também um programa socioassistencial para pessoas a partir de 18 anos, denominado Projeto Semear que objetiva a convivência, fortalecimento de vínculos e autonomia. O atendimento é realizado a pessoas com deficiência intelectual, múltiplas deficiências e transtorno do espectro autista.</p>
-              </div>
+      <!-- conteudo -->
+      <main>
+        <img src="./" alt="imagem fachada" class="img-fluid" />
+        <h1 class="mt-5 ms-5 mb-4">Mais Sobre Nossa História</h1>
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <div class="ms-5 me-3">
+              <p>
+                A Escola Metodista de Educação Especial “O Semeador” nasceu nos
+                anos 70 com a necessidade eminente de uma das irmãs, mãe e
+                mulher de fé, que enfrentava dificuldades no cuidado de seus
+                dois filhos adolescentes e que tinham deficiência intelectual.
+                Eles já não poderiam ser assistidos pelas instituições escolares
+                especializadas da época, porque estas desligavam seus alunos aos
+                quinze anos.
+              </p>
+              <p>
+                Movidos por um profundo senso de solidariedade e com a firme
+                convicção de que o amor de Deus abrange todas as pessoas,
+                independente de suas condições físicas ou mentais, pois foram
+                criadas à Sua imagem e semelhança, seus irmãos e irmãs na fé,
+                decidiram unir forças e concentrar todos os esforços disponíveis
+                para melhorar a qualidade de vida e o bem-estar não apenas dos
+                filhos dela, mas também de todas as pessoas que enfrentavam
+                desafios de deficiência e que pudessem ser alcançadas.
+              </p>
             </div>
           </div>
-        </main>
-      </div>
-</body>
+          <div class="col-12 col-md-6">
+            <div class="ms-5 me-3">
+              <p>
+                A Escola Metodista de Educação Especial “O Semeador” nasceu nos
+                anos 70 com a necessidade eminente de uma das irmãs, mãe e
+                mulher de fé, que enfrentava dificuldades no cuidado de seus
+                dois filhos adolescentes e que tinham deficiência intelectual.
+                Eles já não poderiam ser assistidos pelas instituições escolares
+                especializadas da época, porque estas desligavam seus alunos aos
+                quinze anos.
+              </p>
+              <p>
+                Durante muitos anos, a Escola “O Semeador” funcionou nas
+                dependências da Igreja Metodista. Em 1980, a Prefeitura
+                Municipal de São Caetano do Sul cedeu, em regime de comodato, um
+                terreno de 2.066 m² à Rua dos Meninos, 555, Bairro Mauá, para
+                construção da sede própria da escola que, com muito esforço,
+                trabalho e dedicação em campanhas e com recursos advindos da
+                Igreja Metodista em outros países, construiu o atual complexo
+                tendo sido inaugurado em 1987.
+              </p>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="ms-5 me-3">
+              <p>
+                Atualmente, a escola oferece Atendimento Educacional
+                Especializado para crianças de 4 e 5 anos na Educação Infantil,
+                e de 6 a 18 anos no Ensino Fundamental (1º ao 5º ano). Oferece
+                também um programa socioassistencial para pessoas a partir de 18
+                anos, denominado Projeto Semear que objetiva a convivência,
+                fortalecimento de vínculos e autonomia. O atendimento é
+                realizado a pessoas com deficiência intelectual, múltiplas
+                deficiências e transtorno do espectro autista.
+              </p>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
 
   <script src="./js/main.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+    integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+    crossorigin="anonymous"
+  ></script>
 </html>
