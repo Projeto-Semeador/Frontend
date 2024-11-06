@@ -28,3 +28,9 @@ document
       alert('Por favor, preencha todos os campos obrigatórios.');
     }
   });
+
+
+// button in the corner of the page
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
