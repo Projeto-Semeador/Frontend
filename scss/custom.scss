@@ -2,7 +2,6 @@ $primary: #ff7b00;
 $secondary: #2f329d;
 $primary-subtle: rgb(255, 202.2, 153);
 $secondary-subtle: rgb(171.8, 173, 215.8);
-$success-subtle: rgb(163, 207, 186.6);
 
 html {
   scroll-behavior: smooth;
@@ -63,6 +62,26 @@ html {
   a:last-child {
     margin-right: 0;
   }
+}
+
+.section-height {
+  height: 85vh;
+}
+
+.back-to-top {
+  display: none;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  z-index: 1000;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.3s ease;
 }
 
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
