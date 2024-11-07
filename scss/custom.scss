@@ -8,10 +8,6 @@ html {
   scroll-behavior: smooth;
 }
 
-.active {
-  font-weight: 500 !important;
-}
-
 .no-gutters {
   margin-right: 0;
   margin-left: 0;
@@ -21,6 +17,10 @@ html {
     padding-right: 0;
     padding-left: 0;
   }
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
 }
 
 #logo {
