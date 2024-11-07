@@ -6,10 +6,18 @@ const defaultOptions = {
 
 // Factory function for the event card
 function eventTemplateFactory(event) {
+	const parsedDate = new Date(event.date).toLocaleString('pt-BR', {
+		day: '2-digit',
+		month: '2-digit',
+		year: 'numeric',
+		hour: '2-digit',
+		minute: '2-digit',
+	});
+
   return `
     <div class="card">
       <div class="card-header">
-          Evento #${event._id}
+					Evento - <span class="text-subtle"><strong>${parsedDate}</strong></span>
       </div>
       <div class="card-body">
       <div class="d-flex justify-content-between align-items-center">
@@ -103,6 +111,7 @@ function displayAlert(type, message) {
 
 // Populates the events list with the events fetched from the server
 function populateEvents(events) {
+	events = events.sort((a, b) => new Date(b.date) - new Date(a.date));
   const eventList = document.querySelector('#eventList');
   eventList.innerHTML = '';
 
@@ -179,6 +188,21 @@ function populateAnalytics(analytics) {
   });
 }
 
+// Checks if the user is logged in, if not, redirects to the login page
+async function checkLogin() {
+	await axios
+		.get(`${serverURL}/auth`, defaultOptions).then(() => {
+			if (window.location.pathname === '/src/admin/') {
+				window.location.href = '/src/admin/dashboard';
+			}
+		})
+		.catch((err) => {
+			if (window.location.pathname !== '/src/admin/') {
+				window.location.href = '/src/admin';
+			}
+		});
+}
+
 // Logs the user in
 async function login() {
   const email = document.getElementById('email');
@@ -214,14 +238,12 @@ async function login() {
 }
 
 // Logout
-function logout() {
-  console.log('Logging out');
-
-  // Clear cookies
-  document.cookie = '';
-
-  // Redirect to login
-  window.location.href = '/src/admin';
+async function logout() {
+	await axios.delete(`${serverURL}/logout`, defaultOptions).then(() => {
+		window.location.href = '/src/admin';
+	}).catch((err) => {
+		displayAlert('danger', 'Não foi possível efetuar o logout');
+	});
 
   // Delay and display alert
   setTimeout(() => {
@@ -307,11 +329,13 @@ async function createNewEvent() {
   let eventName = document.querySelector('#addEventModal #eventName');
   let eventDescription = document.querySelector('#addEventModal #eventDescription');
   let eventImage = document.querySelector('#addEventModal #eventImage');
+	let eventDate = document.querySelector('#addEventModal #eventDate');
 
   const event = {
     name: eventName.value,
     description: eventDescription.value,
     image: eventImage.files[0],
+		date: eventDate.value,
   };
 
   await axios

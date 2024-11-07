@@ -11,7 +11,7 @@
     />
     <link href="../../../scss/custom.css" rel="stylesheet" />
   </head>
-  <body onload="fetchEvents()">
+	<body onload="checkLogin(); fetchEvents();">
     <main>
       <header>
         <nav
@@ -304,15 +304,15 @@
                     required
                   ></textarea>
                 </div>
-								<!-- <div class="mb-3"> -->
-								<!-- 	<label for="eventDate" class="form-label">Data</label> -->
-								<!-- 	<input -->
-								<!-- 		type="date" -->
-								<!-- 		class="form-control" -->
-								<!-- 		id="eventDate" -->
-								<!-- 		required -->
-								<!-- 	/> -->
-								<!-- </div> -->
+								<div class="mb-3">
+									<label for="eventDate" class="form-label">Data</label>
+									<input
+										type="datetime-local"
+										class="form-control"
+										id="eventDate"
+										required
+									/>
+								</div>
                 <div class="mb-3">
                   <label for="eventImage" class="form-label">Imagem</label>
                   <input
