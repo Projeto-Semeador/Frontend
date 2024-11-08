@@ -133,14 +133,14 @@
       <main>
         <div
           class="carousel slide"
-          style="height: 85vh; z-index: -1"
+          style="z-index: -1"
           data-bs-ride="carousel"
         >
           <div class="carousel-inner">
             <div class="carousel-item active">
               <img
                 class="d-block w-100"
-                src="./images/hero.png"
+                src="./images/fachada-semeador.jpg"
                 alt="First slide"
               />
             </div>
@@ -187,7 +187,7 @@
           <div class="row">
             <div class="col-12 col-md-6">
               <img
-                src="./images/infraestrutura.png"
+                src="./images/nossa-infraestrutura.png"
                 alt="nossa infraestrutura"
                 class="img-fluid rounded m-3"
                 style="max-width: 90%; height: auto"
@@ -414,7 +414,7 @@
           <div
             class="d-flex justify-content-start align-items-center w-100 mt-4"
           >
-            <div class="carousel-container me-5" style="width: 550px">
+            <div class="carousel-container me-5" style="width: 550px; position: relative;">
               <div
                 id="carouselEventos"
                 class="carousel slide"
@@ -490,7 +490,7 @@
                   </div>
                   <div class="carousel-item">
                     <div class="justify-content-around">
-                      <div class="card" style="height: 600px">
+                      <div class="card" style="height: 630px">
                         <img
                           src="./images/festa-caipira.jpg"
                           alt="evento festa caipira"
@@ -519,9 +519,9 @@
                   </div>
                   <div class="carousel-item">
                     <div class="justify-content-around">
-                      <div class="card" style="height: 600px">
+                      <div class="card" style="height: 630px">
                         <img
-                          src="./images/semana-aprendiz.jpg"
+                          src="./images/semana-aprendiz.png"
                           alt="evento semana do aprendiz"
                           class="card-img-top"
                         />
@@ -610,9 +610,9 @@
                   </div>
                   <div class="carousel-item">
                     <div class="justify-content-around">
-                      <div class="card" style="height: 600px">
+                      <div class="card" style="height: 630px">
                         <img
-                          src="./images/celebracao-natal-1.jpg"
+                          src="./images/celebracao-natal.png"
                           alt="evento celebração de natal"
                           class="card-img-top"
                         />
@@ -647,6 +647,7 @@
                   type="button"
                   data-bs-target="#carouselEventos"
                   data-bs-slide="prev"
+                  style="position: absolute; top: 50%; transform: translateY(-50%); z-index: 10;"
                 >
                   <span
                     class="carousel-control-prev-icon bg-dark"
