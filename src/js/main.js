@@ -144,8 +144,3 @@ function scrollToTop() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-//Invert colors to simple Daltonism
-function invertColors() {
-  document.body.style.filter =
-    document.body.style.filter === 'invert(100%)' ? 'none' : 'invert(100%)';
-}
