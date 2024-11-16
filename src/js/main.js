@@ -128,6 +128,15 @@ $('.carousel').carousel({
   interval: 2000,
 });
 
+window.onscroll = function () {
+  const scrollToTopBtn = document.querySelector('.back-to-top');
+  if (document.documentElement.scrollTop > 20) {
+    scrollToTopBtn.classList.add('visible');
+  } else {
+    scrollToTopBtn.classList.remove('visible');
+  }
+}
+
 // footer
 // form verification
 document
