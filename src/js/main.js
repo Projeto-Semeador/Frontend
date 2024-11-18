@@ -1,6 +1,26 @@
 new window.VLibras.Widget('https://vlibras.gov.br/app');
 const serverURL = 'http://localhost:3000';
 
+async function likeEvent() {
+  var likeButton = document.getElementById('eventLikeButton');
+  var eventID = likeButton.getAttribute('data-event-id');
+
+  await axios
+    .patch(`${serverURL}/events/like/${eventID}`)
+    .then((res) => {
+      var likes = res.data.likeCount + 1;
+      document.getElementById('eventLikeCount').innerText = likes + ' curtidas';
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      likeButton.getElementsByTagName('i')[0].classList = [
+        'bi bi-heart-fill text-white',
+      ];
+    });
+}
+
 function buildEventCard(event) {
   document.getElementById('loading').classList.add('d-none');
   document.getElementById('eventBody').classList.remove('d-none');
@@ -16,10 +36,16 @@ function buildEventCard(event) {
     minute: '2-digit',
   });
 
+  document
+    .getElementById('eventLikeButton')
+    .setAttribute('data-event-id', event._id);
+  document.getElementById('eventLikeCount').innerText =
+    event.likeCount + ' curtidas';
   document.getElementById('eventTitle').innerText = event.name;
   document.getElementById('eventDate').innerText =
     formatedDate + ' às ' + formatedTime;
   document.getElementById('eventDescription').innerText = event.description;
+  document.getElementById('eventImage').src = event.imageURL;
   document.getElementsByTagName('title')[0].innerText =
     event.name + ' | O Semeador';
 }

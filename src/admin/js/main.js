@@ -28,7 +28,7 @@ function eventTemplateFactory(event) {
           </p>
           </div>
           <div class="d-flex gap-2" style="height: min-content;">
-            <button data-bs-toggle="modal" class="btn btn-primary text-white" data-ename=${event.name} data-bs-target="#editEventModal"><i class="bi bi-pencil"></i></button>
+            <button data-bs-toggle="modal" class="btn btn-primary text-white" data-id=${event._id} data-bs-target="#editEventModal"><i class="bi bi-pencil"></i></button>
             <button data-bs-toggle="modal" class="btn btn-danger" data-id="${event._id}" data-bs-target="#deleteEventModal" ><i class="bi bi-trash"></i></button>
           </div>
         </div>
@@ -302,6 +302,18 @@ async function fetchAnalytics() {
     });
 }
 
+// Fetches an event from the server
+async function fetchEvent(id) {
+  return await axios
+    .get(`${serverURL}/events/${id}`)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      displayAlert('danger', 'Não foi possível carregar o evento');
+    });
+}
+
 // Fetches the events from the server
 async function fetchEvents() {
   await axios
@@ -375,6 +387,62 @@ async function deleteEvent(id) {
       $('#deleteEventModal').modal('toggle');
       displayAlert('danger', 'Não foi possível deletar o evento');
     });
+
+  await fetchEvents();
+}
+
+// Updates an event
+async function updateEvent(id) {
+  let eventName = document.querySelector('#editEventModal #eventName');
+  let eventDescription = document.querySelector(
+    '#editEventModal #eventDescription'
+  );
+  let eventImage = document.querySelector('#editEventModal #eventImage');
+  let eventDate = document.querySelector('#editEventModal #eventDate');
+
+  var event = {
+    name: eventName.value,
+    description: eventDescription.value,
+  };
+
+  if (eventDate.value !== '') {
+    event.date = eventDate.value;
+  }
+
+  await axios
+    .patch(`${serverURL}/events/${id}`, event, defaultOptions)
+    .then((res) => {
+      $('#editEventModal').modal('toggle');
+      displayAlert('success', 'Evento atualizado com sucesso');
+    })
+    .catch((err) => {
+      $('#editEventModal').modal('toggle');
+      displayAlert('danger', 'Não foi possível atualizar o evento');
+    });
+
+  if (eventImage.files.length > 0) {
+    await axios
+      .patch(
+        `${serverURL}/events/image/${id}`,
+        {
+          image: eventImage.files[0],
+        },
+        {
+          ...defaultOptions,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      )
+      .then((res) => {
+        $('#editEventModal').modal('toggle');
+        displayAlert('success', 'Evento atualizado com sucesso');
+      })
+      .catch((err) => {
+        $('#editEventModal').modal('toggle');
+        displayAlert('danger', 'Não foi possível atualizar o evento');
+      });
+  }
 
   await fetchEvents();
 }
@@ -467,12 +535,16 @@ $('#deleteEventModal').on('show.bs.modal', function (event) {
   modal.find('#deleteConfirmation').attr('onclick', `deleteEvent("${id}")`);
 });
 
-$('#editEventModal').on('show.bs.modal', function (event) {
+$('#editEventModal').on('show.bs.modal', async function (event) {
   let button = $(event.relatedTarget);
-  let name = button.data('ename');
-  let description = button.data('edescription');
-
   let modal = $(this);
-  modal.find('#eventName').val(name);
-  modal.find('#eventDescription').val(description);
+
+  var event = await fetchEvent(button.data('id')).then((res) => {
+    modal.find('#eventName').val(res.name);
+    modal.find('#eventDescription').val(res.description);
+  });
+
+  modal
+    .find('#editConfirmation')
+    .attr('onclick', `updateEvent("${button.data('id')}")`);
 });

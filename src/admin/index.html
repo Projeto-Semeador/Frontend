@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Painel de Controle - O Semeador</title>
+    <title>Painel de Controle - O Semeador | O Semeador</title>
+    <link rel="icon" href="../images/icon_SVG.svg" />
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link href="../../scss/custom.css" rel="stylesheet" />
   </head>
@@ -13,14 +14,21 @@
       <nav
         id="navbar"
         class="navbar navbar-expand-sm bg-white align-items-center px-lg-5 border-bottom"
+        aria-label="Menu de navegação principal"
       >
-        <a class="navbar-brand" style="margin-left: 1rem" href="/src">
-          <img id="logo" src="../images/icon_SVG.svg" alt="logo" />
+        <a class="navbar-brand" style="margin-left: 1rem" href="#">
+          <img
+            id="logo"
+            src="../images/icon_SVG.svg"
+            alt="Logo da Escola Semeador"
+            role="img"
+            aria-label="Logo da Escola Semeador"
+          />
         </a>
         <div class="d-flex align-items-center gap-4" style="margin-right: 1rem">
           <button
             class="navbar-toggler"
-            style="font-size: small"
+            style="font-size: medium"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarNav"
@@ -36,73 +44,107 @@
           id="navbarNav"
           style="z-index: 90"
         >
-          <ul class="navbar-nav px-4 gap-2" style="font-size: small">
+          <ul class="navbar-nav px-4 gap-2" style="font-size: medium">
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="#" id="inicio"
+              <a
+                class="nav-link"
+                aria-current="page"
+                href="/src/index.html"
+                id="inicio"
+                aria-label="Página Inicial"
                 >Inicio</a
               >
             </li>
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
-                data-bs-toggle="dropdown"
-                href="#institucional"
+                href="#SobreNos"
                 role="button"
                 aria-expanded="false"
-                >Institucional</a
+                aria-haspopup="true"
+                aria-label="Sobre Nós, abrir submenu"
+                >Sobre Nós</a
               >
-              <ul class="dropdown-menu">
+              <ul class="dropdown-menu" aria-label="Submenu Sobre Nós">
                 <li>
-                  <a class="dropdown-item" href="#SobreNos">Sobre Nós</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#NossaHistoria"
+                  <a
+                    class="dropdown-item"
+                    href="./nossa-historia.html"
+                    aria-label="Nossa História"
                     >Nossa História</a
                   >
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#NossaInfrestrutura"
+                  <a
+                    class="dropdown-item"
+                    href="./index.html#NossaInfrestrutura"
+                    aria-label="Nossa Infraestrutura"
                     >Nossa Infraestrutura</a
                   >
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#NossaEquipe">Nossa Equipe</a>
+                  <a
+                    class="dropdown-item"
+                    href="./index.html#NossaEquipe"
+                    aria-label="Nossa Equipe"
+                    >Nossa Equipe</a
+                  >
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#FazerPedagogico"
+                  <a
+                    class="dropdown-item"
+                    href="./fazer-pedagogico.html"
+                    aria-label="Fazer Pedagógico"
                     >Fazer Pedagógico</a
                   >
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#SegmentosEducacionais"
+                  <a
+                    class="dropdown-item"
+                    href="./index.html#SegmentosEducacionais"
+                    aria-label="Segmentos Educacionais"
                     >Segmentos Educacionais</a
                   >
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#Matricula">Matrícula</a>
+                  <a
+                    class="dropdown-item"
+                    href="./index.html#Matricula"
+                    aria-label="Matrícula"
+                    >Matrícula</a
+                  >
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#Parceiros">Parceiros</a>
+                  <a
+                    class="dropdown-item"
+                    href="#Parceiros"
+                    aria-label="Parceiros"
+                    >Parceiros</a
+                  >
                 </li>
               </ul>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#Eventos">Eventos</a>
+              <a
+                class="nav-link"
+                href="./index.html#Eventos"
+                aria-label="Eventos"
+                >Eventos</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#Voluntariado">Voluntariado</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#Contato">Contato</a>
+              <a class="nav-link" href="#Contato" aria-label="Contato"
+                >Contato</a
+              >
             </li>
           </ul>
-          <button
-            type="button"
-            class="btn btn-secondary d-sm-block d-none text-white px-4"
-            style="font-size: small"
+          <a
+            class="btn btn-secondary ms-3 me-3 mb-2"
+            href="./quero-doar.html"
+            role="button"
+            aria-label="Página Quero Doar"
+            >Quero Doar</a
           >
-            Quero Doar
-          </button>
         </div>
       </nav>
     </header>
