@@ -1,5 +1,6 @@
 new window.VLibras.Widget('https://vlibras.gov.br/app');
 
+// Build the calendar
 document.addEventListener('DOMContentLoaded', function () {
   var calendarEl = document.getElementById('event-calendar');
   var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -55,6 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
   calendar.render();
 });
 
+// Build the mobile calendar
 document.addEventListener('DOMContentLoaded', function () {
   var calendarEl = document.getElementById('mobile-event-calendar');
   var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -109,6 +111,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
   calendar.render();
 });
+
+// Get event id from URL
+const reEvent = new RegExp('(event=[a-zA-Z0-9]*)');
+const urlEvent = window.location.href;
+
+var eventID = reEvent.exec(urlEvent)[0].split('=')[1];
+console.log(eventID);
 
 // Get anchor id from URL
 const re = new RegExp('(#[a-zA-Z0-9]*)');
