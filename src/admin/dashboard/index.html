@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Painel de Controle - O Semeador</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link href="../../../scss/custom.css" rel="stylesheet" />
+  </head>
+	<body onload="checkLogin(); fetchEvents();">
+    <main>
+      <header>
+        <nav
+          id="navbar"
+          class="navbar navbar-expand-sm bg-white align-items-center px-lg-5 border-bottom"
+        >
+          <a class="navbar-brand" style="margin-left: 1rem" href="/src">
+            <img id="logo" src="../../images/icon_SVG.svg" alt="logo" />
+          </a>
+          <div
+            class="d-flex align-items-center gap-4"
+            style="margin-right: 1rem"
+          >
+            <button
+              class="navbar-toggler"
+              style="font-size: small"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarNav"
+              aria-controls="navbarNav"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          </div>
+          <div
+            class="collapse navbar-collapse justify-content-between bg-white"
+            id="navbarNav"
+            style="z-index: 90"
+          >
+            <ul class="navbar-nav px-4 gap-2" style="font-size: small">
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="#" id="inicio"
+                  >Inicio</a
+                >
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  data-bs-toggle="dropdown"
+                  href="#institucional"
+                  role="button"
+                  aria-expanded="false"
+                  >Institucional</a
+                >
+                <ul class="dropdown-menu">
+                  <li>
+                    <a class="dropdown-item" href="#SobreNos">Sobre Nós</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#NossaHistoria"
+                      >Nossa História</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#NossaInfrestrutura"
+                      >Nossa Infraestrutura</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#NossaEquipe"
+                      >Nossa Equipe</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#FazerPedagogico"
+                      >Fazer Pedagógico</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#SegmentosEducacionais"
+                      >Segmentos Educacionais</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#Matricula">Matrícula</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#Parceiros">Parceiros</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#Eventos">Eventos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#Voluntariado">Voluntariado</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#Contato">Contato</a>
+              </li>
+            </ul>
+            <button
+              type="button"
+              class="btn btn-secondary d-sm-block d-none text-white px-4"
+              style="font-size: small"
+            >
+              Quero Doar
+            </button>
+          </div>
+        </nav>
+      </header>
+      <div class="container mt-5 mb-5">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="mb-4">
+            <h1>Painel de Controle</h1>
+            <p class="text-muted">Eventos</p>
+          </div>
+          <button
+            id="actionButton"
+            type="button"
+            class="btn btn-secondary p-2 disabled"
+            style="height: min-content"
+            data-bs-toggle="modal"
+            data-bs-target="#addEventModal"
+          >
+            Novo evento
+          </button>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <div class="list-group">
+              <a
+                href="/src/admin/dashboard"
+                class="list-group-item list-group-item-action active"
+                >Eventos</a
+              >
+              <a
+                href="/src/admin/dashboard/users"
+                class="list-group-item list-group-item-action"
+                >Usuários</a
+              >
+              <a
+                href="/src/admin/dashboard/settings"
+                class="list-group-item list-group-item-action"
+                >Configurações</a
+              >
+              <a
+                href="/src/admin/dashboard/analytics"
+                class="list-group-item list-group-item-action"
+                >Análises</a
+              >
+            </div>
+            <hr class="my-4" />
+            <button
+              id="logoutButton"
+              type="button"
+              class="btn btn-link text-muted d-none d-md-flex align-items-center gap-2"
+              data-bs-target="#logoutModal"
+              data-bs-toggle="modal"
+            >
+              Sair
+              <i class="bi bi-box-arrow-right"></i>
+            </button>
+          </div>
+          <div id="eventList" class="col-md-9 d-flex flex-column gap-4">
+            <div class="col d-flex align-items-center justify-content-center">
+              <div class="spinner-border" role="status"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+			<!-- Modal to edit event -->
+			<div
+				class="modal fade"
+				id="editEventModal"
+				tabindex="-1"
+				aria-labelledby="editEventModalLabel"
+				aria-hidden="true"
+			>
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="editEventModalLabel">
+								Editar Evento
+							</h5>
+							<button
+								type="button"
+								class="btn-close"
+								data-bs-dismiss="modal"
+								aria-label="Close"
+							></button>
+						</div>
+						<div class="modal-body p-4">
+							<div>
+								<div class="mb-3">
+									<label for="eventName" class="form-label"
+										>Nome do Evento</label
+									>
+									<input
+										type="text"
+										class="form-control"
+										id="eventName"
+										required
+									/>
+								</div>
+								<div class="mb-3">
+									<label for="eventDescription" class="form-label"
+										>Descrição</label
+									>
+									<textarea
+										class="form-control"
+										id="eventDescription"
+										rows="3"
+										required
+									></textarea>
+								</div>
+								<div class="mb-3">
+									<label for="eventDate" class="form-label">Data</label>
+									<input
+										type="date"
+										class="form-control"
+										id="eventDate"
+										required
+									/>
+								</div>
+								<div class="mb-3">
+									<label for="eventImage" class="form-label">Imagem</label>
+									<input
+										type="file"
+										class="form-control"
+										id="eventImage"
+										required
+									/>
+								</div>
+							</div>
+						</div>
+							<div class="modal-footer">
+								<button
+									type="submit"
+									class="btn btn-secondary"
+									onclick="updateEvent()"
+								>
+									Salvar
+								</button>
+								<button
+									type="button"
+									class="btn btn-danger"
+									data-bs-dismiss="modal"
+								>
+									Cancelar
+								</button>
+							</div>
+				</div>
+			</div>
+			</div>
+      <!-- Modal form to add new event -->
+      <div
+        class="modal fade"
+        id="addEventModal"
+        tabindex="-1"
+        aria-labelledby="addEventModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="addEventModalLabel">
+                Adicionar Evento
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body p-4">
+              <div>
+                <div class="mb-3">
+                  <label for="eventName" class="form-label"
+                    >Nome do Evento</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="eventName"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="eventDescription" class="form-label"
+                    >Descrição</label
+                  >
+                  <textarea
+                    class="form-control"
+                    id="eventDescription"
+                    rows="3"
+                    required
+                  ></textarea>
+                </div>
+								<div class="mb-3">
+									<label for="eventDate" class="form-label">Data</label>
+									<input
+										type="datetime-local"
+										class="form-control"
+										id="eventDate"
+										required
+									/>
+								</div>
+                <div class="mb-3">
+                  <label for="eventImage" class="form-label">Imagem</label>
+                  <input
+                    type="file"
+                    class="form-control"
+                    id="eventImage"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+						<div class="modal-footer">
+                <button
+                  type="submit"
+                  class="btn btn-secondary"
+                  onclick="createNewEvent()"
+                >
+                  Adicionar
+                </button>
+						</div>
+          </div>
+        </div>
+      </div>
+      <!-- Delete confirmation modal -->
+      <div
+        class="modal fade"
+        id="deleteEventModal"
+        tabindex="-1"
+        aria-labelledby="deleteEventModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="deleteEventModalLabel">
+                Deletar Evento
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body p-4">
+              <div>
+                <p>Tem certeza que deseja deletar este evento?</p>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                id="deleteConfirmation"
+                type="submit"
+                class="btn btn-danger"
+              >
+                Deletar
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Logout modal -->
+      <div
+        class="modal fade"
+        id="logoutModal"
+        tabindex="-1"
+        aria-labelledby="logoutModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="logoutModalLabel">Sair</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body p-4">
+              <div>
+                <p>Tem certeza que deseja sair?</p>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-danger" onclick="logout()">
+                Sair
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Request feedback alert -->
+    </main>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.slim.js"
+      integrity="sha256-UgvvN8vBkgO0luPSUl2s8TIlOSYRoGFAX4jlCIm9Adc="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+      integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+      crossorigin="anonymous"
+    ></script>
+    <script src="../js/main.js"></script>
+  </body>
+</html>

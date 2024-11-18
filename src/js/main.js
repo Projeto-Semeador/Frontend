@@ -53,6 +53,14 @@ document.addEventListener('DOMContentLoaded', function () {
     timezone: 'America/Sao_Paulo',
   });
 
+  // close the dropdown if you clik outside of it
+  document.addEventListener('click', (e) => {
+    if (
+      !dropdownToggle.contains(e.target) &&
+      !dropdownMenu.contains(e.target)
+    ) {
+      dropdownMenu.classList.remove('show');
+    }
   calendar.render();
 });
 
@@ -161,4 +169,3 @@ document
 function scrollToTop() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
-

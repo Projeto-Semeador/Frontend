@@ -49,6 +49,28 @@ html {
   width: 100%;
 }
 
+#loginDiv {
+  width: 25%;
+  min-width: 300px;
+}
+
+#feedbackAlert {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+}
+
+@media (max-width: 768px) {
+  #feedbackAlert {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin-inline: auto;
+    width: fit-content;
+  }
+}
+
 #footer_social_media {
   a {
     margin-right: 0.5rem;

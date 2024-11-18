@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Projeto-Semeador/Website#readme",
   "dependencies": {
+    "axios": "^1.7.7",
     "@bjornlu/colorblind": "^1.0.3",
     "bootstrap": "^5.3.3",
     "sass": "^1.79.5"
