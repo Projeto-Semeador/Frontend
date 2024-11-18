@@ -1,66 +1,61 @@
 new window.VLibras.Widget('https://vlibras.gov.br/app');
+const serverURL = 'http://localhost:3000';
+
+function buildEventCard(event) {
+  document.getElementById('loading').classList.add('d-none');
+  document.getElementById('eventBody').classList.remove('d-none');
+
+  var formatedDate = new Date(event.date).toLocaleDateString('pt-br', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+
+  var formatedTime = new Date(event.date).toLocaleTimeString('pt-br', {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+
+  document.getElementById('eventTitle').innerText = event.name;
+  document.getElementById('eventDate').innerText =
+    formatedDate + ' às ' + formatedTime;
+  document.getElementById('eventDescription').innerText = event.description;
+  document.getElementsByTagName('title')[0].innerText =
+    event.name + ' | O Semeador';
+}
+
+async function getEvents() {
+  return await axios
+    .get(`${serverURL}/events`)
+    .then((res) => {
+      const events = res.data;
+
+      return events;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
 
 // Build the calendar
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
+  var events = await getEvents();
+
   var calendarEl = document.getElementById('event-calendar');
   var calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: 'dayGridMonth',
-    events: [
-      {
-        title: 'Celebração de Páscoa',
-        start: '2024-11-15',
-        end: '2024-11-15',
-        url: './celebracao-pascoa.html',
-      },
-      {
-        title: 'Festa da Família',
-        start: '2024-11-16',
-        end: '2024-11-16',
-        url: './festa-familia.html',
-      },
-      {
-        title: 'Festa Caipira',
-        start: '2024-11-17',
-        end: '2024-11-17',
-        url: './festa-caipira.html',
-      },
-      {
-        title: 'Semana do Aprendiz',
-        start: '2024-11-18',
-        end: '2024-11-18',
-        url: './semana-do-aprendiz.html',
-      },
-      {
-        title: 'Festa da Primavera',
-        start: '2024-11-19',
-        end: '2024-11-19',
-        url: './festa-da-primavera.html',
-      },
-      {
-        title: 'Dia Nacional de Ação de Graças - Aniversário da Escola',
-        start: '2024-11-20',
-        end: '2024-11-20',
-        url: './acao-de-gracas.html',
-      },
-      {
-        title: 'Celebração de Natal',
-        start: '2024-11-21',
-        end: '2024-11-21',
-        url: './celebracao-de-natal.html',
-      },
-    ],
+    events: events.map((event) => {
+      return {
+        title: event.name,
+        start: event.date,
+        url: `/src/event.html?event=${event._id}`,
+        allDay: true,
+      };
+    }),
     locale: 'pt-br',
     timezone: 'America/Sao_Paulo',
   });
 
-  // close the dropdown if you clik outside of it
-  document.addEventListener('click', (e) => {
-    if (
-      !dropdownToggle.contains(e.target) &&
-      !dropdownMenu.contains(e.target)
-    ) {
-      dropdownMenu.classList.remove('show');
-    }
   calendar.render();
 });
 
@@ -120,38 +115,37 @@ document.addEventListener('DOMContentLoaded', function () {
   calendar.render();
 });
 
-// Get event id from URL
-const reEvent = new RegExp('(event=[a-zA-Z0-9]*)');
-const urlEvent = window.location.href;
+async function getEvent() {
+  // Get event id from URL
+  const reEvent = new RegExp('(event=[a-zA-Z0-9]*)');
+  const urlEvent = window.location.href;
 
-var eventID = reEvent.exec(urlEvent)[0].split('=')[1];
-console.log(eventID);
+  var eventID = reEvent.exec(urlEvent)[0].split('=')[1];
 
-// Get anchor id from URL
-const re = new RegExp('(#[a-zA-Z0-9]*)');
-const url = window.location.href;
+  if (eventID) {
+    await axios
+      .get(`${serverURL}/events/${eventID}`)
+      .then((res) => {
+        const event = res.data;
+        console.log(event);
 
-var anchor = re.exec(url)[0].split('#')[1];
-console.log(anchor);
-
-if (anchor) {
-  anchor = 'nav_' + anchor;
-  document.getElementById(anchor).classList.add('active');
-} else {
-  document.getElementById('nav_inicio').classList.add('active');
+        buildEventCard(event);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 }
 
-$('.carousel').carousel({
-  interval: 2000,
-});
-
-window.onscroll = function () {
-  const scrollToTopBtn = document.querySelector('.back-to-top');
-  if (document.documentElement.scrollTop > 20) {
-    scrollToTopBtn.classList.add('visible');
-  } else {
-    scrollToTopBtn.classList.remove('visible');
-  }
+if (window.location.pathname === '/src/index.html') {
+  window.onscroll = function () {
+    const scrollToTopBtn = document.querySelector('.back-to-top');
+    if (document.documentElement.scrollTop > 20) {
+      scrollToTopBtn.classList.add('visible');
+    } else {
+      scrollToTopBtn.classList.remove('visible');
+    }
+  };
 }
 
 // footer

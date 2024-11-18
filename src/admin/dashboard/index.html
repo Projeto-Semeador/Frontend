@@ -11,7 +11,7 @@
     />
     <link href="../../../scss/custom.css" rel="stylesheet" />
   </head>
-	<body onload="checkLogin(); fetchEvents();">
+  <body onload="checkLogin(); fetchEvents();">
     <main>
       <header>
         <nav
@@ -175,90 +175,90 @@
           </div>
         </div>
       </div>
-			<!-- Modal to edit event -->
-			<div
-				class="modal fade"
-				id="editEventModal"
-				tabindex="-1"
-				aria-labelledby="editEventModalLabel"
-				aria-hidden="true"
-			>
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="editEventModalLabel">
-								Editar Evento
-							</h5>
-							<button
-								type="button"
-								class="btn-close"
-								data-bs-dismiss="modal"
-								aria-label="Close"
-							></button>
-						</div>
-						<div class="modal-body p-4">
-							<div>
-								<div class="mb-3">
-									<label for="eventName" class="form-label"
-										>Nome do Evento</label
-									>
-									<input
-										type="text"
-										class="form-control"
-										id="eventName"
-										required
-									/>
-								</div>
-								<div class="mb-3">
-									<label for="eventDescription" class="form-label"
-										>Descrição</label
-									>
-									<textarea
-										class="form-control"
-										id="eventDescription"
-										rows="3"
-										required
-									></textarea>
-								</div>
-								<div class="mb-3">
-									<label for="eventDate" class="form-label">Data</label>
-									<input
-										type="date"
-										class="form-control"
-										id="eventDate"
-										required
-									/>
-								</div>
-								<div class="mb-3">
-									<label for="eventImage" class="form-label">Imagem</label>
-									<input
-										type="file"
-										class="form-control"
-										id="eventImage"
-										required
-									/>
-								</div>
-							</div>
-						</div>
-							<div class="modal-footer">
-								<button
-									type="submit"
-									class="btn btn-secondary"
-									onclick="updateEvent()"
-								>
-									Salvar
-								</button>
-								<button
-									type="button"
-									class="btn btn-danger"
-									data-bs-dismiss="modal"
-								>
-									Cancelar
-								</button>
-							</div>
-				</div>
-			</div>
-			</div>
+      <!-- Modal to edit event -->
+      <div
+        class="modal fade"
+        id="editEventModal"
+        tabindex="-1"
+        aria-labelledby="editEventModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="editEventModalLabel">
+                Editar Evento
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body p-4">
+              <div>
+                <div class="mb-3">
+                  <label for="eventName" class="form-label"
+                    >Nome do Evento</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="eventName"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="eventDescription" class="form-label"
+                    >Descrição</label
+                  >
+                  <textarea
+                    class="form-control"
+                    id="eventDescription"
+                    rows="3"
+                    required
+                  ></textarea>
+                </div>
+                <div class="mb-3">
+                  <label for="eventDate" class="form-label">Data</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="eventDate"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="eventImage" class="form-label">Imagem</label>
+                  <input
+                    type="file"
+                    class="form-control"
+                    id="eventImage"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="submit"
+                class="btn btn-secondary"
+                onclick="updateEvent()"
+              >
+                Salvar
+              </button>
+              <button
+                type="button"
+                class="btn btn-danger"
+                data-bs-dismiss="modal"
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
       <!-- Modal form to add new event -->
       <div
         class="modal fade"
@@ -304,15 +304,15 @@
                     required
                   ></textarea>
                 </div>
-								<div class="mb-3">
-									<label for="eventDate" class="form-label">Data</label>
-									<input
-										type="datetime-local"
-										class="form-control"
-										id="eventDate"
-										required
-									/>
-								</div>
+                <div class="mb-3">
+                  <label for="eventDate" class="form-label">Data</label>
+                  <input
+                    type="datetime-local"
+                    class="form-control"
+                    id="eventDate"
+                    required
+                  />
+                </div>
                 <div class="mb-3">
                   <label for="eventImage" class="form-label">Imagem</label>
                   <input
@@ -324,15 +324,15 @@
                 </div>
               </div>
             </div>
-						<div class="modal-footer">
-                <button
-                  type="submit"
-                  class="btn btn-secondary"
-                  onclick="createNewEvent()"
-                >
-                  Adicionar
-                </button>
-						</div>
+            <div class="modal-footer">
+              <button
+                type="submit"
+                class="btn btn-secondary"
+                onclick="createNewEvent()"
+              >
+                Adicionar
+              </button>
+            </div>
           </div>
         </div>
       </div>

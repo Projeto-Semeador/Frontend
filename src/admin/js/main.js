@@ -6,13 +6,13 @@ const defaultOptions = {
 
 // Factory function for the event card
 function eventTemplateFactory(event) {
-	const parsedDate = new Date(event.date).toLocaleString('pt-BR', {
-		day: '2-digit',
-		month: '2-digit',
-		year: 'numeric',
-		hour: '2-digit',
-		minute: '2-digit',
-	});
+  const parsedDate = new Date(event.date).toLocaleString('pt-BR', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
 
   return `
     <div class="card">
@@ -24,11 +24,11 @@ function eventTemplateFactory(event) {
           <div>
           <h5 class="card-title">${event.name}</h5>
           <p class="card-text">
-            ${event.description}
+            ${event.description.length > 100 ? event.description.substring(0, 100) + '...' : event.description}
           </p>
           </div>
           <div class="d-flex gap-2" style="height: min-content;">
-            <button data-bs-toggle="modal" class="btn btn-primary text-white" data-ename=${event.name} data-edescription=${event.description} data-bs-target="#editEventModal"><i class="bi bi-pencil"></i></button>
+            <button data-bs-toggle="modal" class="btn btn-primary text-white" data-ename=${event.name} data-bs-target="#editEventModal"><i class="bi bi-pencil"></i></button>
             <button data-bs-toggle="modal" class="btn btn-danger" data-id="${event._id}" data-bs-target="#deleteEventModal" ><i class="bi bi-trash"></i></button>
           </div>
         </div>
@@ -111,7 +111,7 @@ function displayAlert(type, message) {
 
 // Populates the events list with the events fetched from the server
 function populateEvents(events) {
-	events = events.sort((a, b) => new Date(b.date) - new Date(a.date));
+  events = events.sort((a, b) => new Date(b.date) - new Date(a.date));
   const eventList = document.querySelector('#eventList');
   eventList.innerHTML = '';
 
@@ -190,17 +190,18 @@ function populateAnalytics(analytics) {
 
 // Checks if the user is logged in, if not, redirects to the login page
 async function checkLogin() {
-	await axios
-		.get(`${serverURL}/auth`, defaultOptions).then(() => {
-			if (window.location.pathname === '/src/admin/') {
-				window.location.href = '/src/admin/dashboard';
-			}
-		})
-		.catch((err) => {
-			if (window.location.pathname !== '/src/admin/') {
-				window.location.href = '/src/admin';
-			}
-		});
+  await axios
+    .get(`${serverURL}/auth`, defaultOptions)
+    .then(() => {
+      if (window.location.pathname === '/src/admin/') {
+        window.location.href = '/src/admin/dashboard';
+      }
+    })
+    .catch((err) => {
+      if (window.location.pathname !== '/src/admin/') {
+        window.location.href = '/src/admin';
+      }
+    });
 }
 
 // Logs the user in
@@ -239,11 +240,14 @@ async function login() {
 
 // Logout
 async function logout() {
-	await axios.delete(`${serverURL}/logout`, defaultOptions).then(() => {
-		window.location.href = '/src/admin';
-	}).catch((err) => {
-		displayAlert('danger', 'Não foi possível efetuar o logout');
-	});
+  await axios
+    .delete(`${serverURL}/logout`, defaultOptions)
+    .then(() => {
+      window.location.href = '/src/admin';
+    })
+    .catch((err) => {
+      displayAlert('danger', 'Não foi possível efetuar o logout');
+    });
 
   // Delay and display alert
   setTimeout(() => {
@@ -310,10 +314,10 @@ async function fetchEvents() {
       displayAlert('danger', 'Não foi possível carregar os eventos');
     });
 }
-  
+
 // Fetches the users from the server
 async function fetchUsers() {
-    await axios
+  await axios
     .get(`${serverURL}/users`, defaultOptions)
     .then((res) => {
       populateUsers(res.data);
@@ -327,15 +331,17 @@ async function fetchUsers() {
 // Creates a new event
 async function createNewEvent() {
   let eventName = document.querySelector('#addEventModal #eventName');
-  let eventDescription = document.querySelector('#addEventModal #eventDescription');
+  let eventDescription = document.querySelector(
+    '#addEventModal #eventDescription'
+  );
   let eventImage = document.querySelector('#addEventModal #eventImage');
-	let eventDate = document.querySelector('#addEventModal #eventDate');
+  let eventDate = document.querySelector('#addEventModal #eventDate');
 
   const event = {
     name: eventName.value,
     description: eventDescription.value,
     image: eventImage.files[0],
-		date: eventDate.value,
+    date: eventDate.value,
   };
 
   await axios
@@ -391,43 +397,54 @@ async function deleteUser(username) {
 
 // Changes the user password
 async function changePassword() {
-	// Get token from URL http://localhost:3000/src/recover?token=123
-	let token = new URLSearchParams(window.location.search).get('token');
-	let password = document.querySelector('#newPassword');
-	let passwordConfirmation = document.querySelector('#newPasswordConfirmation');
+  // Get token from URL http://localhost:3000/src/recover?token=123
+  let token = new URLSearchParams(window.location.search).get('token');
+  let password = document.querySelector('#newPassword');
+  let passwordConfirmation = document.querySelector('#newPasswordConfirmation');
 
-	if (token === null) {
-		displayAlert('danger', 'Token inválido');
-		return;
-	}
+  if (token === null) {
+    displayAlert('danger', 'Token inválido');
+    return;
+  }
 
-	if (password.value.length < 8) {
-		$('#newPassword').addClass('is-invalid');
-		return;
-	} else if (password.value !== passwordConfirmation.value) {
-		$('#newPasswordConfirmation').addClass('is-invalid');
-		return;
-	}
+  if (password.value.length < 8) {
+    $('#newPassword').addClass('is-invalid');
+    return;
+  } else if (password.value !== passwordConfirmation.value) {
+    $('#newPasswordConfirmation').addClass('is-invalid');
+    return;
+  }
 
-	await axios.post(`${serverURL}/changePassword/${token}`, { password: password.value }, defaultOptions).then((res) => {
-		displayAlert('success', 'Senha alterada com sucesso');
-	}).catch((err) => {
-		displayAlert('danger', 'Não foi possível alterar a senha');
-	});
+  await axios
+    .post(
+      `${serverURL}/changePassword/${token}`,
+      { password: password.value },
+      defaultOptions
+    )
+    .then((res) => {
+      displayAlert('success', 'Senha alterada com sucesso');
+    })
+    .catch((err) => {
+      displayAlert('danger', 'Não foi possível alterar a senha');
+    });
 }
 
 // Sends recovery email
 async function sendRecoveryEmail() {
-	let email = document.querySelector('#recoveryEmail');
+  let email = document.querySelector('#recoveryEmail');
 
-	await axios
-		.post(`${serverURL}/recover`, { user: {username: email.value} }, defaultOptions)
-		.then((res) => {
-			displayAlert('success', 'Email de recuperação enviado com sucesso');
-		})
-		.catch((err) => {
-			displayAlert('danger', 'Não foi possível enviar o email de recuperação');
-		});
+  await axios
+    .post(
+      `${serverURL}/recover`,
+      { user: { username: email.value } },
+      defaultOptions
+    )
+    .then((res) => {
+      displayAlert('success', 'Email de recuperação enviado com sucesso');
+    })
+    .catch((err) => {
+      displayAlert('danger', 'Não foi possível enviar o email de recuperação');
+    });
 }
 
 // Sets the event listeners for the modals
@@ -451,11 +468,11 @@ $('#deleteEventModal').on('show.bs.modal', function (event) {
 });
 
 $('#editEventModal').on('show.bs.modal', function (event) {
-	let button = $(event.relatedTarget);
-	let name = button.data('ename');
-	let description = button.data('edescription');
+  let button = $(event.relatedTarget);
+  let name = button.data('ename');
+  let description = button.data('edescription');
 
-	let modal = $(this);
-	modal.find('#eventName').val(name);
-	modal.find('#eventDescription').val(description);
+  let modal = $(this);
+  modal.find('#eventName').val(name);
+  modal.find('#eventDescription').val(description);
 });
