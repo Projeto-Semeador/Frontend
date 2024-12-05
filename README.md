@@ -11,8 +11,6 @@ Esse repositório tem o objetivo de aprimorar um Website da escola "O Semeador",
 
 <center>
 
-## LINK PARA O BACKEND: https://github.com/Projeto-Semeador/Backend
-
 | Alunos              | R.A.       | Github              | Cargo        |
 | ------------------- | ---------- | ------------------- | -------------|
 | Alexandre Gualiume  | 24.00886-9 | @xandealee          | Dev. Frontend e Documentação |
