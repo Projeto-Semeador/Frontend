@@ -46,10 +46,11 @@ O projeto foi dividido em duas partes: `frontend` e `backend`. O `frontend` é r
 
 1. Clone o repositório
 2. Entre na pasta `frontend` e execute o comando `npm install`
-3. Entre na pasta `frontend` e execute o comando `build:scss`
-4. Entre na pasta `frontend` e abra o arquivo `index.html` no seu navegador
+3. Entre na pasta `frontend` e execute o comando `watch:scss`
+4. Entre na pasta `frontend` e execute o comando `python -m http.server`
+5. Abra o seu navegador em `localhost:8000/src`
 
 ### Backend
 
 1. Entre na pasta `backend` e execute o comando `npm install`
-2. Entre na pasta `backend` e execute o comando `npm start`
+2. Entre na pasta `backend` e execute o comando `npm run dev`
