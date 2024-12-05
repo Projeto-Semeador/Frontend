@@ -11,13 +11,15 @@ Esse repositório tem o objetivo de aprimorar um Website da escola "O Semeador",
 
 <center>
 
-| Alunos              | R.A.       | Github              |
-| ------------------- | ---------- | ------------------- |
-| Alexandre Gualiume  | 24.00886-9 | @xandealee          |
-| Henrique Seppelfelt | 24.00545-2 | @HenriqueSeppelfelt |
-| Isabella Passarelli | 24.00038-8 | @IsabellaPassarelli |
-| Mateus Silva        | 24.00511-8 | @Matelz             |
-| Pedro Henricke      | 24.00818-4 | @Razorott           |
+## LINK PARA O BACKEND: https://github.com/Projeto-Semeador/Backend
+
+| Alunos              | R.A.       | Github              | Cargo        |
+| ------------------- | ---------- | ------------------- | -------------|
+| Alexandre Gualiume  | 24.00886-9 | @xandealee          | Dev. Frontend e Documentação |
+| Henrique Seppelfelt | 24.00545-2 | @HenriqueSeppelfelt | Dev. Backend e Documentação |
+| Isabella Passarelli | 24.00038-8 | @IsabellaPassarelli | Dev. Frontend e Documentação |
+| Mateus Silva        | 24.00511-8 | @Matelz             | Dev. Frontend e Dev. Backend |
+| Pedro Henricke      | 24.00818-4 | @Razorott           | Dev. Frontend (Responsável pela Acessibilidade) |
 
 </center>
 
